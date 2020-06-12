@@ -1,0 +1,53 @@
+# =============== #
+# Unity generated #
+# =============== #
+JoiUnity/[Ll]ibrary/
+JoiUnity/[Tt]emp/
+JoiUnity/[Oo]bj/
+JoiUnity/[Bb]uilds/
+JoiUnity/[Ee]xports/
+JoiUnity/[Uu]nityGenerated/
+JoiUnity/[Aa]ssets/[Aa]ssetStoreTools*
+
+JoiUnity/Assets/Editor/mod_pbxproj.*
+JoiUnity/Assets/Editor/plistlib.*
+
+# ============= #
+# IDE generated #
+# ============= #
+*.csproj
+*.csproj.*
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+[Ee]xportedObj/
+*.svd
+.consulo
+.vscode/
+.settings/
+.idea
+.vs/
+JoiUnity/Assets/Plugins/Editor/JetBrains
+JoiUnity/Assets/Plugins/Editor/JetBrains.meta
+
+# ================= #
+# Blender generated #
+# ================= #
+.blend1
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.sublime-workspace
