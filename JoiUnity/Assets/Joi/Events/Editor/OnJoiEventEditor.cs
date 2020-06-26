@@ -9,22 +9,31 @@ namespace Joi.Events.Editor
 		public override void OnInspectorGUI()
 		{
 			var eventProp = serializedObject.FindProperty("_event");
-			var converterProp = serializedObject.FindProperty("_converter");
-
 			EditorGUILayout.PropertyField(eventProp);
-			EditorGUILayout.PropertyField(converterProp);
 
 			var joiEvent = EditorUtility.InstanceIDToObject(eventProp.objectReferenceInstanceIDValue) as JoiEvent;
 			if (joiEvent != null)
 			{
-				var converterType = (JoiParameterType) converterProp.intValue;
-				var propertyName = converterType != JoiParameterType.None
-					? "_onEvent" + Enum.GetName(typeof(JoiParameterType), converterType)
-					: joiEvent.ParameterType != JoiParameterType.None
-						? "_onEvent" + Enum.GetName(typeof(JoiParameterType), joiEvent.ParameterType)
-						: "_onEvent";
+				if (Converter.HasConverter(joiEvent.ParameterType))
+				{
+					var eventTypeName = Enum.GetName(typeof(JoiParameterType), joiEvent.ParameterType);
+					var converterProp = serializedObject.FindProperty("_convert" + eventTypeName);
+					EditorGUILayout.PropertyField(converterProp);
 
-				EditorGUILayout.PropertyField(serializedObject.FindProperty(propertyName));
+					var converterType = Converter.GetReturnType((Converter.Type) converterProp.intValue);
+					var onEventPropName = "_onEvent" + Enum.GetName(typeof(JoiParameterType), converterType);
+
+					EditorGUILayout.PropertyField(serializedObject.FindProperty(onEventPropName));
+				}
+				else if (joiEvent.ParameterType != JoiParameterType.None)
+				{
+					var eventTypeName = Enum.GetName(typeof(JoiParameterType), joiEvent.ParameterType);
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("_onEvent" + eventTypeName));
+				}
+				else
+				{
+					EditorGUILayout.PropertyField(serializedObject.FindProperty("_onEvent"));
+				}
 			}
 
 			serializedObject.ApplyModifiedProperties();

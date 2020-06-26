@@ -8,7 +8,11 @@ namespace Joi.Events
 	public class OnJoiEvent : MonoBehaviour
 	{
 		[SerializeField] private JoiEvent _event;
-		[SerializeField] private JoiParameterType _converter;
+
+		[SerializeField] private Converter.BooleanType _convertBoolean;
+		[SerializeField] private Converter.FloatType _convertFloat;
+		[SerializeField] private Converter.IntegerType _convertInteger;
+		[SerializeField] private Converter.StringType _convertString;
 
 		[SerializeField] private UnityEvent _onEvent;
 		[SerializeField] private UnityEventBoolean _onEventBoolean;
@@ -25,6 +29,12 @@ namespace Joi.Events
 		private void Reset()
 		{
 			_event = null;
+
+			_convertBoolean = Converter.BooleanType.None;
+			_convertFloat = Converter.FloatType.None;
+			_convertInteger = Converter.IntegerType.None;
+			_convertString = Converter.StringType.None;
+
 			_onEvent = null;
 			_onEventBoolean = null;
 			_onEventColor = null;
@@ -141,38 +151,22 @@ namespace Joi.Events
 
 		private void TriggerBoolean(bool value)
 		{
-			switch (_converter)
+			switch (_convertBoolean)
 			{
-				case JoiParameterType.None:
-				case JoiParameterType.Boolean:
+				case Converter.BooleanType.None:
 					_onEventBoolean?.Invoke(value);
 					break;
-				case JoiParameterType.Color:
-					_onEventColor?.Invoke(value ? Color.white : Color.clear);
+				case Converter.BooleanType.Invert:
+					_onEventBoolean?.Invoke(Converter.Invert(value));
 					break;
-				case JoiParameterType.Float:
-					_onEventFloat?.Invoke(value ? 1f : 0f);
+				case Converter.BooleanType.Float:
+					_onEventFloat?.Invoke(Converter.ToFloat(value));
 					break;
-				case JoiParameterType.GameObject:
-					_onEventGameObject?.Invoke(null);
+				case Converter.BooleanType.Integer:
+					_onEventInteger?.Invoke(Converter.ToInteger(value));
 					break;
-				case JoiParameterType.Integer:
-					_onEventInteger?.Invoke(value ? 1 : 0);
-					break;
-				case JoiParameterType.Material:
-					_onEventMaterial?.Invoke(null);
-					break;
-				case JoiParameterType.Object:
-					_onEventObject?.Invoke(null);
-					break;
-				case JoiParameterType.Sprite:
-					_onEventSprite?.Invoke(null);
-					break;
-				case JoiParameterType.String:
-					_onEventString?.Invoke(value.ToString());
-					break;
-				case JoiParameterType.Vector3:
-					_onEventVector3?.Invoke(value ? Vector3.one : Vector3.zero);
+				case Converter.BooleanType.String:
+					_onEventString?.Invoke(Converter.ToString(value));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -186,7 +180,50 @@ namespace Joi.Events
 
 		private void TriggerFloat(float value)
 		{
-			_onEventFloat?.Invoke(value);
+			switch (_convertFloat)
+			{
+				case Converter.FloatType.None:
+					_onEventFloat?.Invoke(value);
+					break;
+				case Converter.FloatType.Negate:
+					_onEventFloat?.Invoke(Converter.Negate(value));
+					break;
+				case Converter.FloatType.Boolean:
+					_onEventBoolean?.Invoke(Converter.ToBoolean(value));
+					break;
+				case Converter.FloatType.FloorToInteger:
+					_onEventInteger?.Invoke(Converter.FloorToInteger(value));
+					break;
+				case Converter.FloatType.CeilToInteger:
+					_onEventInteger?.Invoke(Converter.CeilToInteger(value));
+					break;
+				case Converter.FloatType.RoundToInteger:
+					_onEventInteger?.Invoke(Converter.RoundToInteger(value));
+					break;
+				case Converter.FloatType.String:
+					_onEventString?.Invoke(Converter.ToString(value));
+					break;
+				case Converter.FloatType.StringF:
+					_onEventString?.Invoke(Converter.ToStringF(value));
+					break;
+				case Converter.FloatType.StringF1:
+					_onEventString?.Invoke(Converter.ToStringF1(value));
+					break;
+				case Converter.FloatType.StringN:
+					_onEventString?.Invoke(Converter.ToStringN(value));
+					break;
+				case Converter.FloatType.StringN1:
+					_onEventString?.Invoke(Converter.ToStringN1(value));
+					break;
+				case Converter.FloatType.StringP:
+					_onEventString?.Invoke(Converter.ToStringP(value));
+					break;
+				case Converter.FloatType.StringP1:
+					_onEventString?.Invoke(Converter.ToStringP1(value));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private void TriggerGameObject(GameObject value)
@@ -196,7 +233,26 @@ namespace Joi.Events
 
 		private void TriggerInteger(int value)
 		{
-			_onEventInteger?.Invoke(value);
+			switch (_convertInteger)
+			{
+				case Converter.IntegerType.None:
+					_onEventInteger?.Invoke(value);
+					break;
+				case Converter.IntegerType.Negate:
+					_onEventInteger?.Invoke(Converter.Negate(value));
+					break;
+				case Converter.IntegerType.Boolean:
+					_onEventBoolean?.Invoke(Converter.ToBoolean(value));
+					break;
+				case Converter.IntegerType.Float:
+					_onEventFloat?.Invoke(Converter.ToFloat(value));
+					break;
+				case Converter.IntegerType.String:
+					_onEventString?.Invoke(Converter.ToString(value));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private void TriggerMaterial(Material value)
@@ -216,6 +272,24 @@ namespace Joi.Events
 
 		private void TriggerString(string value)
 		{
+			switch (_convertString)
+			{
+				case Converter.StringType.None:
+					_onEventString?.Invoke(value);
+					break;
+				case Converter.StringType.Boolean:
+					_onEventBoolean?.Invoke(Converter.ToBoolean(value));
+					break;
+				case Converter.StringType.Float:
+					_onEventFloat?.Invoke(Converter.ToFloat(value));
+					break;
+				case Converter.StringType.Integer:
+					_onEventInteger?.Invoke(Converter.ToInteger(value));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
 			_onEventString?.Invoke(value);
 		}
 
