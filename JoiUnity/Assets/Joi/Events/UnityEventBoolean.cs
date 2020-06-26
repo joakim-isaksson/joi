@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace Joi.Events
 {
 	[Serializable]
-	public class UnityEventBool : UnityEvent<bool>
+	public class UnityEventBoolean : UnityEvent<bool>
 	{
 	}
 }

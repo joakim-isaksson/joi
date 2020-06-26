@@ -2,7 +2,7 @@
 
 namespace Joi.Variables
 {
-	public class OnValueChangedBool : OnValueChanged<VariableBool, UnityEventBool, bool>
+	public class OnValueChangedBool : OnValueChanged<VariableBool, UnityEventBoolean, bool>
 	{
 	}
 }

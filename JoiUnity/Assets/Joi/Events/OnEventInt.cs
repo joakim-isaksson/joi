@@ -1,6 +1,6 @@
 ﻿namespace Joi.Events
 {
-	public class OnEventInt : OnEvent<EventInt, UnityEventInt, int>
+	public class OnEventInt : OnEvent<EventInt, UnityEventInteger, int>
 	{
 	}
 }

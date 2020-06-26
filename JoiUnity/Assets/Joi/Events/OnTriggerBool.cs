@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Joi.Events
 {
-	public class OnTriggerBool : OnTrigger<UnityEventBool, bool>
+	public class OnTriggerBool : OnTrigger<UnityEventBoolean, bool>
 	{
 		public void TriggerInverted(bool value)
 		{

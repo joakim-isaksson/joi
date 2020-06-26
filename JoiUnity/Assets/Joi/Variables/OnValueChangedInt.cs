@@ -2,7 +2,7 @@
 
 namespace Joi.Variables
 {
-	public class OnValueChangedInt : OnValueChanged<VariableInt, UnityEventInt, int>
+	public class OnValueChangedInt : OnValueChanged<VariableInt, UnityEventInteger, int>
 	{
 	}
 }

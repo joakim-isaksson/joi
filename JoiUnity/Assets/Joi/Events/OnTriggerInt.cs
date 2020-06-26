@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Joi.Events
 {
-	public class OnTriggerInt : OnTrigger<UnityEventInt, int>
+	public class OnTriggerInt : OnTrigger<UnityEventInteger, int>
 	{
 		public void TriggerNegate(int value)
 		{
