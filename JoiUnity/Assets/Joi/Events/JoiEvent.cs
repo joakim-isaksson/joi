@@ -10,7 +10,7 @@ namespace Joi.Events
 		[SerializeField] private JoiParameterType _parameterType;
 
 #if UNITY_EDITOR
-		[SerializeField] private string _description;
+		[TextArea] [SerializeField] private string _description;
 #endif
 
 		public JoiParameterType ParameterType => _parameterType;

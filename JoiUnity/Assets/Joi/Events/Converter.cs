@@ -3,289 +3,301 @@ using UnityEngine;
 
 namespace Joi.Events
 {
-	public static class Converter
+	[Serializable]
+	public class Converter
 	{
-		public enum Type
+		public enum BooleanConverter
 		{
-			BooleanNone,
-			BooleanInvert,
-			BooleanToFloat,
-			BooleanToInteger,
-			BooleanToString,
-			FloatNone,
-			FloatNegate,
-			FloatToBoolean,
-			FloatFloorToInteger,
-			FloatCeilToInteger,
-			FloatRoundToInteger,
-			FloatToString,
-			FloatToStringF,
-			FloatToStringF1,
-			FloatToStringN,
-			FloatToStringN1,
-			FloatToStringP,
-			FloatToStringP1,
-			IntegerNone,
-			IntegerNegate,
-			IntegerToBoolean,
-			IntegerToFloat,
-			IntegerToString,
-			StringNone,
-			StringToBoolean,
-			StringToFloat,
-			StringToInteger,
+			None,
+			Invert,
+			Float,
+			Integer,
+			String
 		}
 
-		public enum BooleanType
+		public enum FloatConverter
 		{
-			None = Type.BooleanNone,
-			Invert = Type.BooleanInvert,
-			Float = Type.BooleanToFloat,
-			Integer = Type.BooleanToInteger,
-			String = Type.BooleanToString
+			None,
+			Negate,
+			Boolean,
+			FloorToInteger,
+			CeilToInteger,
+			RoundToInteger,
+			String,
+			StringF,
+			StringF1,
+			StringN,
+			StringN1,
+			StringP,
+			StringP1,
 		}
 
-		public enum FloatType
+		public enum IntegerConverter
 		{
-			None = Type.FloatNone,
-			Negate = Type.FloatNegate,
-			Boolean = Type.FloatToBoolean,
-			FloorToInteger = Type.FloatFloorToInteger,
-			CeilToInteger = Type.FloatCeilToInteger,
-			RoundToInteger = Type.FloatRoundToInteger,
-			String = Type.FloatToString,
-			StringF = Type.FloatToStringF,
-			StringF1 = Type.FloatToStringF1,
-			StringN = Type.FloatToStringN,
-			StringN1 = Type.FloatToStringN1,
-			StringP = Type.FloatToStringP,
-			StringP1 = Type.FloatToStringP1,
+			None,
+			Negate,
+			Boolean,
+			Float,
+			String
 		}
 
-		public enum IntegerType
+		public enum StringConverter
 		{
-			None = Type.IntegerNone,
-			Negate = Type.IntegerNegate,
-			Boolean = Type.IntegerToBoolean,
-			Float = Type.IntegerToFloat,
-			String = Type.IntegerToString
-		}
-
-		public enum StringType
-		{
-			None = Type.StringNone,
-			Boolean = Type.StringToBoolean,
-			Float = Type.StringToFloat,
-			Integer = Type.StringToInteger
+			None,
+			Boolean,
+			Float,
+			Integer
 		}
 
 		public static bool HasConverter(JoiParameterType type)
 		{
 			switch (type)
 			{
-				case JoiParameterType.None:
-					return false;
 				case JoiParameterType.Boolean:
-					return true;
-				case JoiParameterType.Color:
-					return false;
 				case JoiParameterType.Float:
-					return true;
-				case JoiParameterType.GameObject:
-					return false;
 				case JoiParameterType.Integer:
-					return true;
-				case JoiParameterType.Material:
-					return false;
-				case JoiParameterType.Object:
-					return false;
-				case JoiParameterType.Sprite:
-					return false;
 				case JoiParameterType.String:
 					return true;
-				case JoiParameterType.Vector3:
-					return false;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
+
+			return false;
 		}
 
-		public static JoiParameterType GetReturnType(Type type)
+		public Action<bool> OnBoolean;
+		public Action<float> OnFloat;
+		public Action<int> OnInteger;
+		public Action<string> OnString;
+
+		[SerializeField] private BooleanConverter _converterBoolean;
+		[SerializeField] private FloatConverter _converterFloat;
+		[SerializeField] private IntegerConverter _converterInteger;
+		[SerializeField] private StringConverter _converterString;
+
+		public void Convert(bool value)
 		{
-			switch (type)
+			switch (_converterBoolean)
 			{
-				case Type.BooleanNone:
-					return JoiParameterType.Boolean;
-				case Type.BooleanInvert:
-					return JoiParameterType.Boolean;
-				case Type.BooleanToFloat:
-					return JoiParameterType.Float;
-				case Type.BooleanToInteger:
-					return JoiParameterType.Integer;
-				case Type.BooleanToString:
-					return JoiParameterType.String;
-				case Type.FloatNone:
-					return JoiParameterType.Float;
-				case Type.FloatNegate:
-					return JoiParameterType.Float;
-				case Type.FloatToBoolean:
-					return JoiParameterType.Boolean;
-				case Type.FloatFloorToInteger:
-					return JoiParameterType.Integer;
-				case Type.FloatCeilToInteger:
-					return JoiParameterType.Integer;
-				case Type.FloatRoundToInteger:
-					return JoiParameterType.Integer;
-				case Type.FloatToString:
-					return JoiParameterType.String;
-				case Type.FloatToStringF:
-					return JoiParameterType.String;
-				case Type.FloatToStringF1:
-					return JoiParameterType.String;
-				case Type.FloatToStringN:
-					return JoiParameterType.String;
-				case Type.FloatToStringN1:
-					return JoiParameterType.String;
-				case Type.FloatToStringP:
-					return JoiParameterType.String;
-				case Type.FloatToStringP1:
-					return JoiParameterType.String;
-				case Type.IntegerNone:
-					return JoiParameterType.Integer;
-				case Type.IntegerNegate:
-					return JoiParameterType.Integer;
-				case Type.IntegerToBoolean:
-					return JoiParameterType.Boolean;
-				case Type.IntegerToFloat:
-					return JoiParameterType.Float;
-				case Type.IntegerToString:
-					return JoiParameterType.String;
-				case Type.StringNone:
-					return JoiParameterType.String;
-				case Type.StringToBoolean:
-					return JoiParameterType.Boolean;
-				case Type.StringToFloat:
-					return JoiParameterType.Float;
-				case Type.StringToInteger:
-					return JoiParameterType.Integer;
+				case BooleanConverter.None:
+					OnBoolean?.Invoke(value);
+					break;
+				case BooleanConverter.Invert:
+					OnBoolean?.Invoke(!value);
+					break;
+				case BooleanConverter.Float:
+					OnFloat?.Invoke(value ? 1f : 0f);
+					break;
+				case BooleanConverter.Integer:
+					OnInteger?.Invoke(value ? 1 : 0);
+					break;
+				case BooleanConverter.String:
+					OnString?.Invoke(value.ToString());
+					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(type), type, null);
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 
-		public static bool Invert(bool value)
+		public void Convert(float value)
 		{
-			return !value;
+			switch (_converterFloat)
+			{
+				case FloatConverter.None:
+					OnFloat?.Invoke(value);
+					break;
+				case FloatConverter.Negate:
+					OnFloat?.Invoke(-value);
+					break;
+				case FloatConverter.Boolean:
+					OnBoolean?.Invoke(Mathf.Approximately(value, 0f));
+					break;
+				case FloatConverter.FloorToInteger:
+					OnInteger?.Invoke(Mathf.FloorToInt(value));
+					break;
+				case FloatConverter.CeilToInteger:
+					OnInteger?.Invoke(Mathf.CeilToInt(value));
+					break;
+				case FloatConverter.RoundToInteger:
+					OnInteger?.Invoke(Mathf.RoundToInt(value));
+					break;
+				case FloatConverter.String:
+					OnString?.Invoke(value.ToString());
+					break;
+				case FloatConverter.StringF:
+					OnString?.Invoke(value.ToString("F"));
+					break;
+				case FloatConverter.StringF1:
+					OnString?.Invoke(value.ToString("F1"));
+					break;
+				case FloatConverter.StringN:
+					OnString?.Invoke(value.ToString("N"));
+					break;
+				case FloatConverter.StringN1:
+					OnString?.Invoke(value.ToString("N1"));
+					break;
+				case FloatConverter.StringP:
+					OnString?.Invoke(value.ToString("P"));
+					break;
+				case FloatConverter.StringP1:
+					OnString?.Invoke(value.ToString("P1"));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
-		public static float ToFloat(bool value)
+		public void Convert(int value)
 		{
-			return value ? 1.0f : 0f;
+			switch (_converterInteger)
+			{
+				case IntegerConverter.None:
+					OnInteger?.Invoke(value);
+					break;
+				case IntegerConverter.Negate:
+					OnInteger?.Invoke(-value);
+					break;
+				case IntegerConverter.Boolean:
+					OnBoolean?.Invoke(value == 0);
+					break;
+				case IntegerConverter.Float:
+					OnFloat?.Invoke(value);
+					break;
+				case IntegerConverter.String:
+					OnString?.Invoke(value.ToString());
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
-		public static int ToInteger(bool value)
+		public void Convert(string value)
 		{
-			return value ? 1 : 0;
+			switch (_converterString)
+			{
+				case StringConverter.None:
+					OnString?.Invoke(value);
+					break;
+				case StringConverter.Boolean:
+					OnBoolean?.Invoke(bool.Parse(value));
+					break;
+				case StringConverter.Float:
+					OnFloat?.Invoke(float.Parse(value));
+					break;
+				case StringConverter.Integer:
+					OnInteger?.Invoke(int.Parse(value));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
-		public static string ToString(bool value)
+		public JoiParameterType GetBooleanReturnType()
 		{
-			return value.ToString();
+			return GetReturnType(_converterBoolean);
 		}
 
-		public static float Negate(float value)
+		public JoiParameterType GetFloatReturnType()
 		{
-			return -value;
+			return GetReturnType(_converterFloat);
 		}
 
-		public static bool ToBoolean(float value)
+		public JoiParameterType GetIntegerReturnType()
 		{
-			return Mathf.Approximately(value, 0f);
+			return GetReturnType(_converterInteger);
 		}
 
-		public static int FloorToInteger(float value)
+		public JoiParameterType GetStringReturnType()
 		{
-			return Mathf.FloorToInt(value);
+			return GetReturnType(_converterString);
 		}
 
-		public static int CeilToInteger(float value)
+		public static JoiParameterType GetReturnType(BooleanConverter converter)
 		{
-			return Mathf.CeilToInt(value);
+			switch (converter)
+			{
+				case BooleanConverter.None:
+					return JoiParameterType.Boolean;
+				case BooleanConverter.Invert:
+					return JoiParameterType.Boolean;
+				case BooleanConverter.Float:
+					return JoiParameterType.Float;
+				case BooleanConverter.Integer:
+					return JoiParameterType.Integer;
+				case BooleanConverter.String:
+					return JoiParameterType.String;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
+			}
 		}
 
-		public static int RoundToInteger(float value)
+		public static JoiParameterType GetReturnType(FloatConverter converter)
 		{
-			return Mathf.RoundToInt(value);
+			switch (converter)
+			{
+				case FloatConverter.None:
+					return JoiParameterType.Float;
+				case FloatConverter.Negate:
+					return JoiParameterType.Float;
+				case FloatConverter.Boolean:
+					return JoiParameterType.Boolean;
+				case FloatConverter.FloorToInteger:
+					return JoiParameterType.Integer;
+				case FloatConverter.CeilToInteger:
+					return JoiParameterType.Integer;
+				case FloatConverter.RoundToInteger:
+					return JoiParameterType.Integer;
+				case FloatConverter.String:
+					return JoiParameterType.String;
+				case FloatConverter.StringF:
+					return JoiParameterType.String;
+				case FloatConverter.StringF1:
+					return JoiParameterType.String;
+				case FloatConverter.StringN:
+					return JoiParameterType.String;
+				case FloatConverter.StringN1:
+					return JoiParameterType.String;
+				case FloatConverter.StringP:
+					return JoiParameterType.String;
+				case FloatConverter.StringP1:
+					return JoiParameterType.String;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
+			}
 		}
 
-		public static string ToString(float value)
+		public static JoiParameterType GetReturnType(IntegerConverter converter)
 		{
-			return value.ToString();
+			switch (converter)
+			{
+				case IntegerConverter.None:
+					return JoiParameterType.Integer;
+				case IntegerConverter.Negate:
+					return JoiParameterType.Integer;
+				case IntegerConverter.Boolean:
+					return JoiParameterType.Boolean;
+				case IntegerConverter.Float:
+					return JoiParameterType.Float;
+				case IntegerConverter.String:
+					return JoiParameterType.String;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
+			}
 		}
 
-		public static string ToStringF(float value)
+		public static JoiParameterType GetReturnType(StringConverter converter)
 		{
-			return value.ToString("F");
-		}
-
-		public static string ToStringF1(float value)
-		{
-			return value.ToString("F1");
-		}
-
-		public static string ToStringN(float value)
-		{
-			return value.ToString("N");
-		}
-
-		public static string ToStringN1(float value)
-		{
-			return value.ToString("N1");
-		}
-
-		public static string ToStringP(float value)
-		{
-			return value.ToString("P");
-		}
-
-		public static string ToStringP1(float value)
-		{
-			return value.ToString("P1");
-		}
-
-		public static int Negate(int value)
-		{
-			return -value;
-		}
-
-		public static bool ToBoolean(int value)
-		{
-			return value != 0;
-		}
-
-		public static float ToFloat(int value)
-		{
-			return value;
-		}
-
-		public static string ToString(int value)
-		{
-			return value.ToString();
-		}
-
-		public static bool ToBoolean(string value)
-		{
-			return bool.Parse(value);
-		}
-
-		public static float ToFloat(string value)
-		{
-			return float.Parse(value);
-		}
-
-		public static int ToInteger(string value)
-		{
-			return int.Parse(value);
+			switch (converter)
+			{
+				case StringConverter.None:
+					return JoiParameterType.String;
+				case StringConverter.Boolean:
+					return JoiParameterType.Boolean;
+				case StringConverter.Float:
+					return JoiParameterType.Float;
+				case StringConverter.Integer:
+					return JoiParameterType.Integer;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
+			}
 		}
 	}
 }

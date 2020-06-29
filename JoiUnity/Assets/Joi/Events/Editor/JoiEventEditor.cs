@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+// TODO: convert to UIElements
 namespace Joi.Events.Editor
 {
 	[CustomEditor(typeof(JoiEvent))]
@@ -30,7 +31,9 @@ namespace Joi.Events.Editor
 
 			GUI.enabled = Application.isPlaying;
 
+			EditorGUILayout.BeginHorizontal();
 			TriggerField();
+			EditorGUILayout.EndHorizontal();
 
 			GUI.enabled = wasEnabled;
 
