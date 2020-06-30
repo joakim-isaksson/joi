@@ -24,12 +24,18 @@ namespace Joi.Events
 			CeilToInteger,
 			RoundToInteger,
 			String,
-			StringF,
-			StringF1,
-			StringN,
-			StringN1,
-			StringP,
-			StringP1,
+			StringFixedPoint,
+			StringFixedPoint0,
+			StringFixedPoint1,
+			StringFixedPoint2,
+			StringNumber,
+			StringNumber0,
+			StringNumber1,
+			StringNumber2,
+			StringPercentage,
+			StringPercentage0,
+			StringPercentage1,
+			StringPercentage2
 		}
 
 		public enum IntegerConverter
@@ -63,10 +69,10 @@ namespace Joi.Events
 			return false;
 		}
 
-		public Action<bool> OnBoolean;
-		public Action<float> OnFloat;
-		public Action<int> OnInteger;
-		public Action<string> OnString;
+		public Action<bool> OnResultBoolean;
+		public Action<float> OnResultFloat;
+		public Action<int> OnResultInteger;
+		public Action<string> OnResultString;
 
 		[SerializeField] private BooleanConverter _converterBoolean;
 		[SerializeField] private FloatConverter _converterFloat;
@@ -78,19 +84,19 @@ namespace Joi.Events
 			switch (_converterBoolean)
 			{
 				case BooleanConverter.None:
-					OnBoolean?.Invoke(value);
+					OnResultBoolean?.Invoke(value);
 					break;
 				case BooleanConverter.Invert:
-					OnBoolean?.Invoke(!value);
+					OnResultBoolean?.Invoke(!value);
 					break;
 				case BooleanConverter.Float:
-					OnFloat?.Invoke(value ? 1f : 0f);
+					OnResultFloat?.Invoke(value ? 1f : 0f);
 					break;
 				case BooleanConverter.Integer:
-					OnInteger?.Invoke(value ? 1 : 0);
+					OnResultInteger?.Invoke(value ? 1 : 0);
 					break;
 				case BooleanConverter.String:
-					OnString?.Invoke(value.ToString());
+					OnResultString?.Invoke(value.ToString());
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -102,43 +108,61 @@ namespace Joi.Events
 			switch (_converterFloat)
 			{
 				case FloatConverter.None:
-					OnFloat?.Invoke(value);
+					OnResultFloat?.Invoke(value);
 					break;
 				case FloatConverter.Negate:
-					OnFloat?.Invoke(-value);
+					OnResultFloat?.Invoke(-value);
 					break;
 				case FloatConverter.Boolean:
-					OnBoolean?.Invoke(Mathf.Approximately(value, 0f));
+					OnResultBoolean?.Invoke(Mathf.Approximately(value, 0f));
 					break;
 				case FloatConverter.FloorToInteger:
-					OnInteger?.Invoke(Mathf.FloorToInt(value));
+					OnResultInteger?.Invoke(Mathf.FloorToInt(value));
 					break;
 				case FloatConverter.CeilToInteger:
-					OnInteger?.Invoke(Mathf.CeilToInt(value));
+					OnResultInteger?.Invoke(Mathf.CeilToInt(value));
 					break;
 				case FloatConverter.RoundToInteger:
-					OnInteger?.Invoke(Mathf.RoundToInt(value));
+					OnResultInteger?.Invoke(Mathf.RoundToInt(value));
 					break;
 				case FloatConverter.String:
-					OnString?.Invoke(value.ToString());
+					OnResultString?.Invoke(value.ToString());
 					break;
-				case FloatConverter.StringF:
-					OnString?.Invoke(value.ToString("F"));
+				case FloatConverter.StringFixedPoint:
+					OnResultString?.Invoke(value.ToString("F"));
 					break;
-				case FloatConverter.StringF1:
-					OnString?.Invoke(value.ToString("F1"));
+				case FloatConverter.StringFixedPoint0:
+					OnResultString?.Invoke(value.ToString("F0"));
 					break;
-				case FloatConverter.StringN:
-					OnString?.Invoke(value.ToString("N"));
+				case FloatConverter.StringFixedPoint1:
+					OnResultString?.Invoke(value.ToString("F1"));
 					break;
-				case FloatConverter.StringN1:
-					OnString?.Invoke(value.ToString("N1"));
+				case FloatConverter.StringFixedPoint2:
+					OnResultString?.Invoke(value.ToString("F2"));
 					break;
-				case FloatConverter.StringP:
-					OnString?.Invoke(value.ToString("P"));
+				case FloatConverter.StringNumber:
+					OnResultString?.Invoke(value.ToString("N"));
 					break;
-				case FloatConverter.StringP1:
-					OnString?.Invoke(value.ToString("P1"));
+				case FloatConverter.StringNumber0:
+					OnResultString?.Invoke(value.ToString("N0"));
+					break;
+				case FloatConverter.StringNumber1:
+					OnResultString?.Invoke(value.ToString("N1"));
+					break;
+				case FloatConverter.StringNumber2:
+					OnResultString?.Invoke(value.ToString("N2"));
+					break;
+				case FloatConverter.StringPercentage:
+					OnResultString?.Invoke(value.ToString("P"));
+					break;
+				case FloatConverter.StringPercentage0:
+					OnResultString?.Invoke(value.ToString("P0"));
+					break;
+				case FloatConverter.StringPercentage1:
+					OnResultString?.Invoke(value.ToString("P1"));
+					break;
+				case FloatConverter.StringPercentage2:
+					OnResultString?.Invoke(value.ToString("P2"));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -150,19 +174,19 @@ namespace Joi.Events
 			switch (_converterInteger)
 			{
 				case IntegerConverter.None:
-					OnInteger?.Invoke(value);
+					OnResultInteger?.Invoke(value);
 					break;
 				case IntegerConverter.Negate:
-					OnInteger?.Invoke(-value);
+					OnResultInteger?.Invoke(-value);
 					break;
 				case IntegerConverter.Boolean:
-					OnBoolean?.Invoke(value == 0);
+					OnResultBoolean?.Invoke(value == 0);
 					break;
 				case IntegerConverter.Float:
-					OnFloat?.Invoke(value);
+					OnResultFloat?.Invoke(value);
 					break;
 				case IntegerConverter.String:
-					OnString?.Invoke(value.ToString());
+					OnResultString?.Invoke(value.ToString());
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -174,40 +198,20 @@ namespace Joi.Events
 			switch (_converterString)
 			{
 				case StringConverter.None:
-					OnString?.Invoke(value);
+					OnResultString?.Invoke(value);
 					break;
 				case StringConverter.Boolean:
-					OnBoolean?.Invoke(bool.Parse(value));
+					OnResultBoolean?.Invoke(bool.Parse(value));
 					break;
 				case StringConverter.Float:
-					OnFloat?.Invoke(float.Parse(value));
+					OnResultFloat?.Invoke(float.Parse(value));
 					break;
 				case StringConverter.Integer:
-					OnInteger?.Invoke(int.Parse(value));
+					OnResultInteger?.Invoke(int.Parse(value));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-		}
-
-		public JoiParameterType GetBooleanReturnType()
-		{
-			return GetReturnType(_converterBoolean);
-		}
-
-		public JoiParameterType GetFloatReturnType()
-		{
-			return GetReturnType(_converterFloat);
-		}
-
-		public JoiParameterType GetIntegerReturnType()
-		{
-			return GetReturnType(_converterInteger);
-		}
-
-		public JoiParameterType GetStringReturnType()
-		{
-			return GetReturnType(_converterString);
 		}
 
 		public static JoiParameterType GetReturnType(BooleanConverter converter)
@@ -215,7 +219,6 @@ namespace Joi.Events
 			switch (converter)
 			{
 				case BooleanConverter.None:
-					return JoiParameterType.Boolean;
 				case BooleanConverter.Invert:
 					return JoiParameterType.Boolean;
 				case BooleanConverter.Float:
@@ -234,30 +237,27 @@ namespace Joi.Events
 			switch (converter)
 			{
 				case FloatConverter.None:
-					return JoiParameterType.Float;
 				case FloatConverter.Negate:
 					return JoiParameterType.Float;
 				case FloatConverter.Boolean:
 					return JoiParameterType.Boolean;
 				case FloatConverter.FloorToInteger:
-					return JoiParameterType.Integer;
 				case FloatConverter.CeilToInteger:
-					return JoiParameterType.Integer;
 				case FloatConverter.RoundToInteger:
 					return JoiParameterType.Integer;
 				case FloatConverter.String:
-					return JoiParameterType.String;
-				case FloatConverter.StringF:
-					return JoiParameterType.String;
-				case FloatConverter.StringF1:
-					return JoiParameterType.String;
-				case FloatConverter.StringN:
-					return JoiParameterType.String;
-				case FloatConverter.StringN1:
-					return JoiParameterType.String;
-				case FloatConverter.StringP:
-					return JoiParameterType.String;
-				case FloatConverter.StringP1:
+				case FloatConverter.StringFixedPoint:
+				case FloatConverter.StringFixedPoint0:
+				case FloatConverter.StringFixedPoint1:
+				case FloatConverter.StringFixedPoint2:
+				case FloatConverter.StringNumber:
+				case FloatConverter.StringNumber0:
+				case FloatConverter.StringNumber1:
+				case FloatConverter.StringNumber2:
+				case FloatConverter.StringPercentage:
+				case FloatConverter.StringPercentage0:
+				case FloatConverter.StringPercentage1:
+				case FloatConverter.StringPercentage2:
 					return JoiParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
@@ -269,7 +269,6 @@ namespace Joi.Events
 			switch (converter)
 			{
 				case IntegerConverter.None:
-					return JoiParameterType.Integer;
 				case IntegerConverter.Negate:
 					return JoiParameterType.Integer;
 				case IntegerConverter.Boolean:

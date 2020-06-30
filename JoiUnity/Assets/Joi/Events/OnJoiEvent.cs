@@ -52,67 +52,49 @@ namespace Joi.Events
 				return;
 			}
 
-			// TODO: is this optimization for registering worth it?
-			var converterReturnType = JoiParameterType.None;
-
 			switch (_event.ParameterType)
 			{
 				case JoiParameterType.None:
-					_event.OnTrigger += Trigger;
+					_event.OnTrigger += Filter;
 					break;
 				case JoiParameterType.Boolean:
-					_event.OnTriggerBoolean += FilterBoolean;
-					converterReturnType = _converter.GetBooleanReturnType();
+					_event.OnTriggerBoolean += Filter;
 					break;
 				case JoiParameterType.Color:
-					_event.OnTriggerColor += Trigger;
+					_event.OnTriggerColor += Filter;
 					break;
 				case JoiParameterType.Float:
-					_event.OnTriggerFloat += FilterFloat;
-					converterReturnType = _converter.GetFloatReturnType();
+					_event.OnTriggerFloat += Filter;
 					break;
 				case JoiParameterType.GameObject:
-					_event.OnTriggerGameObject += Trigger;
+					_event.OnTriggerGameObject += Filter;
 					break;
 				case JoiParameterType.Integer:
-					_event.OnTriggerInteger += FilterInteger;
-					converterReturnType = _converter.GetIntegerReturnType();
+					_event.OnTriggerInteger += Filter;
 					break;
 				case JoiParameterType.Material:
-					_event.OnTriggerMaterial += Trigger;
+					_event.OnTriggerMaterial += Filter;
 					break;
 				case JoiParameterType.Object:
-					_event.OnTriggerObject += Trigger;
+					_event.OnTriggerObject += Filter;
 					break;
 				case JoiParameterType.Sprite:
-					_event.OnTriggerSprite += Trigger;
+					_event.OnTriggerSprite += Filter;
 					break;
 				case JoiParameterType.String:
-					_event.OnTriggerString += FilterString;
-					converterReturnType = _converter.GetStringReturnType();
+					_event.OnTriggerString += Filter;
 					break;
 				case JoiParameterType.Vector3:
-					_event.OnTriggerVector3 += Trigger;
+					_event.OnTriggerVector3 += Filter;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
-			switch (converterReturnType)
-			{
-				case JoiParameterType.Boolean:
-					_converter.OnBoolean += Trigger;
-					break;
-				case JoiParameterType.Float:
-					_converter.OnFloat += Trigger;
-					break;
-				case JoiParameterType.Integer:
-					_converter.OnInteger += Trigger;
-					break;
-				case JoiParameterType.String:
-					_converter.OnString += Trigger;
-					break;
-			}
+			_converter.OnResultBoolean += Trigger;
+			_converter.OnResultFloat += Trigger;
+			_converter.OnResultInteger += Trigger;
+			_converter.OnResultString += Trigger;
 		}
 
 		private void OnDisable()
@@ -123,66 +105,182 @@ namespace Joi.Events
 				return;
 			}
 
-			var converterReturnType = JoiParameterType.None;
-
 			switch (_event.ParameterType)
 			{
 				case JoiParameterType.None:
-					_event.OnTrigger -= Trigger;
+					_event.OnTrigger -= Filter;
 					break;
 				case JoiParameterType.Boolean:
-					_event.OnTriggerBoolean -= FilterBoolean;
-					converterReturnType = _converter.GetBooleanReturnType();
+					_event.OnTriggerBoolean -= Filter;
 					break;
 				case JoiParameterType.Color:
-					_event.OnTriggerColor -= Trigger;
+					_event.OnTriggerColor -= Filter;
 					break;
 				case JoiParameterType.Float:
-					_event.OnTriggerFloat -= FilterFloat;
-					converterReturnType = _converter.GetFloatReturnType();
+					_event.OnTriggerFloat -= Filter;
 					break;
 				case JoiParameterType.GameObject:
-					_event.OnTriggerGameObject -= Trigger;
+					_event.OnTriggerGameObject -= Filter;
 					break;
 				case JoiParameterType.Integer:
-					_event.OnTriggerInteger -= FilterInteger;
-					converterReturnType = _converter.GetIntegerReturnType();
+					_event.OnTriggerInteger -= Filter;
 					break;
 				case JoiParameterType.Material:
-					_event.OnTriggerMaterial -= Trigger;
+					_event.OnTriggerMaterial -= Filter;
 					break;
 				case JoiParameterType.Object:
-					_event.OnTriggerObject -= Trigger;
+					_event.OnTriggerObject -= Filter;
 					break;
 				case JoiParameterType.Sprite:
-					_event.OnTriggerSprite -= Trigger;
+					_event.OnTriggerSprite -= Filter;
 					break;
 				case JoiParameterType.String:
-					_event.OnTriggerString -= FilterString;
-					converterReturnType = _converter.GetStringReturnType();
+					_event.OnTriggerString -= Filter;
 					break;
 				case JoiParameterType.Vector3:
-					_event.OnTriggerVector3 -= Trigger;
+					_event.OnTriggerVector3 -= Filter;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
-			switch (converterReturnType)
+			_converter.OnResultBoolean -= Trigger;
+			_converter.OnResultFloat -= Trigger;
+			_converter.OnResultInteger -= Trigger;
+			_converter.OnResultString -= Trigger;
+		}
+
+		private void Filter()
+		{
+			if (_event.ParameterType != JoiParameterType.None)
 			{
-				case JoiParameterType.Boolean:
-					_converter.OnBoolean -= Trigger;
-					break;
-				case JoiParameterType.Float:
-					_converter.OnFloat -= Trigger;
-					break;
-				case JoiParameterType.Integer:
-					_converter.OnInteger -= Trigger;
-					break;
-				case JoiParameterType.String:
-					_converter.OnString -= Trigger;
-					break;
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
 			}
+
+			Trigger();
+		}
+
+		private void Filter(bool value)
+		{
+			if (_event.ParameterType != JoiParameterType.Boolean)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			if (_filter.IsFiltered(value))
+			{
+				_converter.Convert(value);
+			}
+		}
+
+		private void Filter(Color value)
+		{
+			if (_event.ParameterType != JoiParameterType.Color)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
+		}
+
+		private void Filter(float value)
+		{
+			if (_event.ParameterType != JoiParameterType.Float)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			if (_filter.IsFiltered(value))
+			{
+				_converter.Convert(value);
+			}
+		}
+
+		private void Filter(GameObject value)
+		{
+			if (_event.ParameterType != JoiParameterType.GameObject)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
+		}
+
+		private void Filter(int value)
+		{
+			if (_event.ParameterType != JoiParameterType.Integer)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			if (_filter.IsFiltered(value))
+			{
+				_converter.Convert(value);
+			}
+		}
+
+		private void Filter(Material value)
+		{
+			if (_event.ParameterType != JoiParameterType.Material)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
+		}
+
+		private void Filter(Object value)
+		{
+			if (_event.ParameterType != JoiParameterType.Object)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
+		}
+
+		private void Filter(Sprite value)
+		{
+			if (_event.ParameterType != JoiParameterType.Sprite)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
+		}
+
+		private void Filter(string value)
+		{
+			if (_event.ParameterType != JoiParameterType.String)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			if (_filter.IsFiltered(value))
+			{
+				_converter.Convert(value);
+			}
+		}
+
+		private void Filter(Vector3 value)
+		{
+			if (_event.ParameterType != JoiParameterType.Vector3)
+			{
+				Debug.LogAssertion("Trigger type do not match event parameter type", this);
+				return;
+			}
+
+			Trigger(value);
 		}
 
 		private void Trigger()
@@ -238,38 +336,6 @@ namespace Joi.Events
 		private void Trigger(Vector3 value)
 		{
 			_onEventVector3?.Invoke(value);
-		}
-
-		private void FilterBoolean(bool value)
-		{
-			if (_filter.IsFiltered(value))
-			{
-				_converter.Convert(value);
-			}
-		}
-
-		private void FilterFloat(float value)
-		{
-			if (_filter.IsFiltered(value))
-			{
-				_converter.Convert(value);
-			}
-		}
-
-		private void FilterInteger(int value)
-		{
-			if (_filter.IsFiltered(value))
-			{
-				_converter.Convert(value);
-			}
-		}
-
-		private void FilterString(string value)
-		{
-			if (_filter.IsFiltered(value))
-			{
-				_converter.Convert(value);
-			}
 		}
 	}
 }
