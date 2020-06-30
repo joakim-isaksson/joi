@@ -26,7 +26,7 @@ namespace Joi.Events.Editor
 
 			GUI.enabled = !Application.isPlaying;
 
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("_parameterType"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("_parameter"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("_description"));
 
 			GUI.enabled = Application.isPlaying;
@@ -43,16 +43,16 @@ namespace Joi.Events.Editor
 		private void TriggerField()
 		{
 			var joiEvent = (JoiEvent) target;
-			switch (joiEvent.ParameterType)
+			switch (joiEvent.Parameter)
 			{
-				case JoiParameterType.None:
+				case JoiEvent.ParameterType.None:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger();
 					}
 
 					break;
-				case JoiParameterType.Boolean:
+				case JoiEvent.ParameterType.Boolean:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueBoolean);
@@ -60,7 +60,7 @@ namespace Joi.Events.Editor
 
 					_valueBoolean = EditorGUILayout.Toggle(_valueBoolean);
 					break;
-				case JoiParameterType.Color:
+				case JoiEvent.ParameterType.Color:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueColor);
@@ -68,7 +68,7 @@ namespace Joi.Events.Editor
 
 					_valueColor = EditorGUILayout.ColorField(_valueColor);
 					break;
-				case JoiParameterType.Float:
+				case JoiEvent.ParameterType.Float:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueFloat);
@@ -76,7 +76,7 @@ namespace Joi.Events.Editor
 
 					_valueFloat = EditorGUILayout.FloatField(_valueFloat);
 					break;
-				case JoiParameterType.GameObject:
+				case JoiEvent.ParameterType.GameObject:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueGameObject);
@@ -85,7 +85,7 @@ namespace Joi.Events.Editor
 					_valueGameObject =
 						EditorGUILayout.ObjectField(_valueGameObject, typeof(GameObject), false) as GameObject;
 					break;
-				case JoiParameterType.Integer:
+				case JoiEvent.ParameterType.Integer:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueInteger);
@@ -93,7 +93,7 @@ namespace Joi.Events.Editor
 
 					_valueInteger = EditorGUILayout.IntField(_valueInteger);
 					break;
-				case JoiParameterType.Material:
+				case JoiEvent.ParameterType.Material:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueMaterial);
@@ -101,7 +101,7 @@ namespace Joi.Events.Editor
 
 					_valueMaterial = EditorGUILayout.ObjectField(_valueMaterial, typeof(Material), false) as Material;
 					break;
-				case JoiParameterType.Object:
+				case JoiEvent.ParameterType.Object:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueObject);
@@ -109,7 +109,7 @@ namespace Joi.Events.Editor
 
 					_valueObject = EditorGUILayout.ObjectField(_valueObject, typeof(Object), false);
 					break;
-				case JoiParameterType.Sprite:
+				case JoiEvent.ParameterType.Sprite:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueSprite);
@@ -117,7 +117,7 @@ namespace Joi.Events.Editor
 
 					_valueSprite = EditorGUILayout.ObjectField(_valueSprite, typeof(Sprite), false) as Sprite;
 					break;
-				case JoiParameterType.String:
+				case JoiEvent.ParameterType.String:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueString);
@@ -125,7 +125,7 @@ namespace Joi.Events.Editor
 
 					_valueString = EditorGUILayout.TextField(_valueString);
 					break;
-				case JoiParameterType.Vector3:
+				case JoiEvent.ParameterType.Vector3:
 					if (GUILayout.Button("Trigger", GUILayout.Width(100)))
 					{
 						joiEvent.Trigger(_valueVector3);

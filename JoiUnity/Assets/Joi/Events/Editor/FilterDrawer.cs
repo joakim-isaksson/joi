@@ -26,7 +26,7 @@ namespace Joi.Events.Editor
 				var filterRect = new Rect(position.x, position.y, halfWidth, position.height);
 				var valueRect = new Rect(position.x + halfWidth, position.y, halfWidth, position.height);
 
-				var eventTypeName = Enum.GetName(typeof(JoiParameterType), joiEvent.ParameterType);
+				var eventTypeName = Enum.GetName(typeof(JoiEvent.ParameterType), joiEvent.Parameter);
 				EditorGUI.PropertyField(filterRect, property.FindPropertyRelative("_filter" + eventTypeName),
 					GUIContent.none);
 

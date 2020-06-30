@@ -55,14 +55,14 @@ namespace Joi.Events
 			Integer
 		}
 
-		public static bool HasConverter(JoiParameterType type)
+		public static bool HasConverter(JoiEvent.ParameterType type)
 		{
 			switch (type)
 			{
-				case JoiParameterType.Boolean:
-				case JoiParameterType.Float:
-				case JoiParameterType.Integer:
-				case JoiParameterType.String:
+				case JoiEvent.ParameterType.Boolean:
+				case JoiEvent.ParameterType.Float:
+				case JoiEvent.ParameterType.Integer:
+				case JoiEvent.ParameterType.String:
 					return true;
 			}
 
@@ -214,37 +214,37 @@ namespace Joi.Events
 			}
 		}
 
-		public static JoiParameterType GetReturnType(BooleanConverter converter)
+		public static JoiEvent.ParameterType GetReturnType(BooleanConverter converter)
 		{
 			switch (converter)
 			{
 				case BooleanConverter.None:
 				case BooleanConverter.Invert:
-					return JoiParameterType.Boolean;
+					return JoiEvent.ParameterType.Boolean;
 				case BooleanConverter.Float:
-					return JoiParameterType.Float;
+					return JoiEvent.ParameterType.Float;
 				case BooleanConverter.Integer:
-					return JoiParameterType.Integer;
+					return JoiEvent.ParameterType.Integer;
 				case BooleanConverter.String:
-					return JoiParameterType.String;
+					return JoiEvent.ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiParameterType GetReturnType(FloatConverter converter)
+		public static JoiEvent.ParameterType GetReturnType(FloatConverter converter)
 		{
 			switch (converter)
 			{
 				case FloatConverter.None:
 				case FloatConverter.Negate:
-					return JoiParameterType.Float;
+					return JoiEvent.ParameterType.Float;
 				case FloatConverter.Boolean:
-					return JoiParameterType.Boolean;
+					return JoiEvent.ParameterType.Boolean;
 				case FloatConverter.FloorToInteger:
 				case FloatConverter.CeilToInteger:
 				case FloatConverter.RoundToInteger:
-					return JoiParameterType.Integer;
+					return JoiEvent.ParameterType.Integer;
 				case FloatConverter.String:
 				case FloatConverter.StringFixedPoint:
 				case FloatConverter.StringFixedPoint0:
@@ -258,42 +258,42 @@ namespace Joi.Events
 				case FloatConverter.StringPercentage0:
 				case FloatConverter.StringPercentage1:
 				case FloatConverter.StringPercentage2:
-					return JoiParameterType.String;
+					return JoiEvent.ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiParameterType GetReturnType(IntegerConverter converter)
+		public static JoiEvent.ParameterType GetReturnType(IntegerConverter converter)
 		{
 			switch (converter)
 			{
 				case IntegerConverter.None:
 				case IntegerConverter.Negate:
-					return JoiParameterType.Integer;
+					return JoiEvent.ParameterType.Integer;
 				case IntegerConverter.Boolean:
-					return JoiParameterType.Boolean;
+					return JoiEvent.ParameterType.Boolean;
 				case IntegerConverter.Float:
-					return JoiParameterType.Float;
+					return JoiEvent.ParameterType.Float;
 				case IntegerConverter.String:
-					return JoiParameterType.String;
+					return JoiEvent.ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiParameterType GetReturnType(StringConverter converter)
+		public static JoiEvent.ParameterType GetReturnType(StringConverter converter)
 		{
 			switch (converter)
 			{
 				case StringConverter.None:
-					return JoiParameterType.String;
+					return JoiEvent.ParameterType.String;
 				case StringConverter.Boolean:
-					return JoiParameterType.Boolean;
+					return JoiEvent.ParameterType.Boolean;
 				case StringConverter.Float:
-					return JoiParameterType.Float;
+					return JoiEvent.ParameterType.Float;
 				case StringConverter.Integer:
-					return JoiParameterType.Integer;
+					return JoiEvent.ParameterType.Integer;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
