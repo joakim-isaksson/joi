@@ -2,7 +2,7 @@ namespace Joi.Events
 {
 	public enum TriggerType
 	{
-		None,
+		Manual,
 		OnAwake,
 		OnStart,
 		OnEnable,

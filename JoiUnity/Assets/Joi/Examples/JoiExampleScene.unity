@@ -2943,6 +2943,7 @@ GameObject:
   - component: {fileID: 493061285}
   - component: {fileID: 493061287}
   - component: {fileID: 493061286}
+  - component: {fileID: 493061288}
   m_Layer: 5
   m_Name: --- VARIABLES ---
   m_TagString: Untagged
@@ -3010,6 +3011,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493061284}
   m_CullTransparentMesh: 0
+--- !u!114 &493061288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493061284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9c21013177464c9635c62579da4e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &499945795
 GameObject:
   m_ObjectHideFlags: 0
@@ -4056,7 +4083,7 @@ GameObject:
   - component: {fileID: 759580533}
   - component: {fileID: 759580534}
   m_Layer: 5
-  m_Name: Event Trigger
+  m_Name: Event Trigger Manual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7547,7 +7574,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Event Trigger
+  m_Text: Event Trigger Manual
 --- !u!222 &1505842227
 CanvasRenderer:
   m_ObjectHideFlags: 0

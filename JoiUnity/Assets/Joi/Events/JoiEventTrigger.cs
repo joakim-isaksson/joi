@@ -26,7 +26,7 @@ namespace Joi.Events
 
 		private void Reset()
 		{
-			_trigger = TriggerType.None;
+			_trigger = TriggerType.Manual;
 
 			_parameterBoolean = false;
 			_parameterColor = Color.white;

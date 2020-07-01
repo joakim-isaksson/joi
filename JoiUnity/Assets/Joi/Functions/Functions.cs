@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 
-namespace Joi.Actions
+namespace Joi.Functions
 {
-	[CreateAssetMenu(menuName = "Joi/Actions/Toggle")]
-	public class ActionToggle : ScriptableObject
+	[CreateAssetMenu(menuName = "Joi/Functions")]
+	public class Functions : ScriptableObject
 	{
+		public void Destroy_(Object obj)
+		{
+			Destroy(obj);
+		}
+
 		public void Toggle(GameObject obj)
 		{
 			obj.SetActive(obj.activeSelf);
