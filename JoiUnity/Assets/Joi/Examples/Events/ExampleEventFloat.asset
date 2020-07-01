@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db603cfebfd95429fa566a476b70e6e7, type: 3}
   m_Name: ExampleEventFloat
   m_EditorClassIdentifier: 
-  _parameter: 3
-  _description: 
+  _type: 3
+  _description: Developer note example

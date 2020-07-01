@@ -55,14 +55,14 @@ namespace Joi.Events
 			Integer
 		}
 
-		public static bool HasConverter(JoiEvent.ParameterType type)
+		public static bool HasConverter(ParameterType type)
 		{
 			switch (type)
 			{
-				case JoiEvent.ParameterType.Boolean:
-				case JoiEvent.ParameterType.Float:
-				case JoiEvent.ParameterType.Integer:
-				case JoiEvent.ParameterType.String:
+				case ParameterType.Boolean:
+				case ParameterType.Float:
+				case ParameterType.Integer:
+				case ParameterType.String:
 					return true;
 			}
 
@@ -214,37 +214,37 @@ namespace Joi.Events
 			}
 		}
 
-		public static JoiEvent.ParameterType GetReturnType(BooleanConverter converter)
+		public static ParameterType GetReturnType(BooleanConverter converter)
 		{
 			switch (converter)
 			{
 				case BooleanConverter.None:
 				case BooleanConverter.Invert:
-					return JoiEvent.ParameterType.Boolean;
+					return ParameterType.Boolean;
 				case BooleanConverter.Float:
-					return JoiEvent.ParameterType.Float;
+					return ParameterType.Float;
 				case BooleanConverter.Integer:
-					return JoiEvent.ParameterType.Integer;
+					return ParameterType.Integer;
 				case BooleanConverter.String:
-					return JoiEvent.ParameterType.String;
+					return ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiEvent.ParameterType GetReturnType(FloatConverter converter)
+		public static ParameterType GetReturnType(FloatConverter converter)
 		{
 			switch (converter)
 			{
 				case FloatConverter.None:
 				case FloatConverter.Negate:
-					return JoiEvent.ParameterType.Float;
+					return ParameterType.Float;
 				case FloatConverter.Boolean:
-					return JoiEvent.ParameterType.Boolean;
+					return ParameterType.Boolean;
 				case FloatConverter.FloorToInteger:
 				case FloatConverter.CeilToInteger:
 				case FloatConverter.RoundToInteger:
-					return JoiEvent.ParameterType.Integer;
+					return ParameterType.Integer;
 				case FloatConverter.String:
 				case FloatConverter.StringFixedPoint:
 				case FloatConverter.StringFixedPoint0:
@@ -258,42 +258,42 @@ namespace Joi.Events
 				case FloatConverter.StringPercentage0:
 				case FloatConverter.StringPercentage1:
 				case FloatConverter.StringPercentage2:
-					return JoiEvent.ParameterType.String;
+					return ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiEvent.ParameterType GetReturnType(IntegerConverter converter)
+		public static ParameterType GetReturnType(IntegerConverter converter)
 		{
 			switch (converter)
 			{
 				case IntegerConverter.None:
 				case IntegerConverter.Negate:
-					return JoiEvent.ParameterType.Integer;
+					return ParameterType.Integer;
 				case IntegerConverter.Boolean:
-					return JoiEvent.ParameterType.Boolean;
+					return ParameterType.Boolean;
 				case IntegerConverter.Float:
-					return JoiEvent.ParameterType.Float;
+					return ParameterType.Float;
 				case IntegerConverter.String:
-					return JoiEvent.ParameterType.String;
+					return ParameterType.String;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}
 		}
 
-		public static JoiEvent.ParameterType GetReturnType(StringConverter converter)
+		public static ParameterType GetReturnType(StringConverter converter)
 		{
 			switch (converter)
 			{
 				case StringConverter.None:
-					return JoiEvent.ParameterType.String;
+					return ParameterType.String;
 				case StringConverter.Boolean:
-					return JoiEvent.ParameterType.Boolean;
+					return ParameterType.Boolean;
 				case StringConverter.Float:
-					return JoiEvent.ParameterType.Float;
+					return ParameterType.Float;
 				case StringConverter.Integer:
-					return JoiEvent.ParameterType.Integer;
+					return ParameterType.Integer;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(converter), converter, null);
 			}

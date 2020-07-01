@@ -7,23 +7,8 @@ namespace Joi.Events
 	[CreateAssetMenu(menuName = "Joi/Event")]
 	public class JoiEvent : ScriptableObject
 	{
-		public enum ParameterType
-		{
-			None,
-			Boolean,
-			Color,
-			Float,
-			GameObject,
-			Integer,
-			Material,
-			Object,
-			Sprite,
-			String,
-			Vector3
-		}
-
-		[SerializeField] private ParameterType _parameter;
-		public ParameterType Parameter => _parameter;
+		[SerializeField] private ParameterType _type;
+		public ParameterType Type => _type;
 
 #if UNITY_EDITOR
 		[TextArea] [SerializeField] private string _description;
@@ -48,7 +33,7 @@ namespace Joi.Events
 
 		public void Trigger(bool value)
 		{
-			if (_parameter != ParameterType.Boolean)
+			if (_type != ParameterType.Boolean)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -59,7 +44,7 @@ namespace Joi.Events
 
 		public void Trigger(Color value)
 		{
-			if (_parameter != ParameterType.Color)
+			if (_type != ParameterType.Color)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -70,7 +55,7 @@ namespace Joi.Events
 
 		public void Trigger(float value)
 		{
-			if (_parameter != ParameterType.Float)
+			if (_type != ParameterType.Float)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -81,7 +66,7 @@ namespace Joi.Events
 
 		public void Trigger(GameObject value)
 		{
-			if (_parameter != ParameterType.GameObject)
+			if (_type != ParameterType.GameObject)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -92,7 +77,7 @@ namespace Joi.Events
 
 		public void Trigger(int value)
 		{
-			if (_parameter != ParameterType.Integer)
+			if (_type != ParameterType.Integer)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -103,7 +88,7 @@ namespace Joi.Events
 
 		public void Trigger(Material value)
 		{
-			if (_parameter != ParameterType.Material)
+			if (_type != ParameterType.Material)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -114,7 +99,7 @@ namespace Joi.Events
 
 		public void Trigger(Object value)
 		{
-			if (_parameter != ParameterType.Object)
+			if (_type != ParameterType.Object)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -125,7 +110,7 @@ namespace Joi.Events
 
 		public void Trigger(Sprite value)
 		{
-			if (_parameter != ParameterType.Sprite)
+			if (_type != ParameterType.Sprite)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -136,7 +121,7 @@ namespace Joi.Events
 
 		public void Trigger(string value)
 		{
-			if (_parameter != ParameterType.String)
+			if (_type != ParameterType.String)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -147,7 +132,7 @@ namespace Joi.Events
 
 		public void Trigger(Vector3 value)
 		{
-			if (_parameter != ParameterType.Vector3)
+			if (_type != ParameterType.Vector3)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;

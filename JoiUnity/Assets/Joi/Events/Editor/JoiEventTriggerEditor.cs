@@ -12,9 +12,9 @@ namespace Joi.Events.Editor
 			var eventProp = serializedObject.FindProperty("_event");
 
 			var joiEvent = EditorUtility.InstanceIDToObject(eventProp.objectReferenceInstanceIDValue) as JoiEvent;
-			if (joiEvent != null && joiEvent.Parameter != JoiEvent.ParameterType.None)
+			if (joiEvent != null && joiEvent.Type != ParameterType.None)
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("_parameter" + joiEvent.Parameter));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("_parameter" + joiEvent.Type));
 			}
 
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("_delay"));

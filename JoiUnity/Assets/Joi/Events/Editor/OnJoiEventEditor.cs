@@ -15,23 +15,23 @@ namespace Joi.Events.Editor
 			var joiEvent = EditorUtility.InstanceIDToObject(eventProp.objectReferenceInstanceIDValue) as JoiEvent;
 			if (joiEvent != null)
 			{
-				var eventTypeName = Enum.GetName(typeof(JoiEvent.ParameterType), joiEvent.Parameter);
+				var eventTypeName = Enum.GetName(typeof(ParameterType), joiEvent.Type);
 
-				if (Filter.HasFilter(joiEvent.Parameter))
+				if (Filter.HasFilter(joiEvent.Type))
 				{
 					var filterProp = serializedObject.FindProperty("_filter");
 					EditorGUILayout.PropertyField(filterProp);
 				}
 
-				if (Converter.HasConverter(joiEvent.Parameter))
+				if (Converter.HasConverter(joiEvent.Type))
 				{
 					var converterProp = serializedObject.FindProperty("_converter");
 					EditorGUILayout.PropertyField(converterProp);
 
-					var converterReturnType = GetConverterReturnType(converterProp, joiEvent.Parameter);
+					var converterReturnType = GetConverterReturnType(converterProp, joiEvent.Type);
 					EditorGUILayout.PropertyField(serializedObject.FindProperty("_onEvent" + converterReturnType));
 				}
-				else if (joiEvent.Parameter != JoiEvent.ParameterType.None)
+				else if (joiEvent.Type != ParameterType.None)
 				{
 					EditorGUILayout.PropertyField(serializedObject.FindProperty("_onEvent" + eventTypeName));
 				}
@@ -44,19 +44,19 @@ namespace Joi.Events.Editor
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		private static JoiEvent.ParameterType GetConverterReturnType(SerializedProperty converterProp, JoiEvent.ParameterType type)
+		private static ParameterType GetConverterReturnType(SerializedProperty converterProp, ParameterType type)
 		{
 			var typeProp = converterProp.FindPropertyRelative("_converter" + type);
 
 			switch (type)
 			{
-				case JoiEvent.ParameterType.Boolean:
+				case ParameterType.Boolean:
 					return Converter.GetReturnType((Converter.BooleanConverter) typeProp.intValue);
-				case JoiEvent.ParameterType.Float:
+				case ParameterType.Float:
 					return Converter.GetReturnType((Converter.FloatConverter) typeProp.intValue);
-				case JoiEvent.ParameterType.Integer:
+				case ParameterType.Integer:
 					return Converter.GetReturnType((Converter.IntegerConverter) typeProp.intValue);
-				case JoiEvent.ParameterType.String:
+				case ParameterType.String:
 					return Converter.GetReturnType((Converter.StringConverter) typeProp.intValue);
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);

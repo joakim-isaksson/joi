@@ -23,7 +23,7 @@ namespace Joi.Events.Editor
 			var joiEvent = EditorUtility.InstanceIDToObject(eventProp.objectReferenceInstanceIDValue) as JoiEvent;
 			if (joiEvent != null)
 			{
-				var eventTypeName = Enum.GetName(typeof(JoiEvent.ParameterType), joiEvent.Parameter);
+				var eventTypeName = Enum.GetName(typeof(ParameterType), joiEvent.Type);
 				EditorGUI.PropertyField(filterRect, property.FindPropertyRelative("_converter" + eventTypeName),
 					GUIContent.none);
 			}

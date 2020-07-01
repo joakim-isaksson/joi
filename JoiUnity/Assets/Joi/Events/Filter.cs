@@ -48,14 +48,14 @@ namespace Joi.Events
 		[SerializeField] private int _valueInteger;
 		[SerializeField] private string _valueString;
 
-		public static bool HasFilter(JoiEvent.ParameterType type)
+		public static bool HasFilter(ParameterType type)
 		{
 			switch (type)
 			{
-				case JoiEvent.ParameterType.Boolean:
-				case JoiEvent.ParameterType.Float:
-				case JoiEvent.ParameterType.Integer:
-				case JoiEvent.ParameterType.String:
+				case ParameterType.Boolean:
+				case ParameterType.Float:
+				case ParameterType.Integer:
+				case ParameterType.String:
 					return true;
 			}
 

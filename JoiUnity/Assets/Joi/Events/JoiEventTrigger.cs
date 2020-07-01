@@ -7,16 +7,6 @@ namespace Joi.Events
 {
 	public class JoiEventTrigger : MonoBehaviour
 	{
-		public enum TriggerType
-		{
-			None,
-			OnAwake,
-			OnStart,
-			OnEnable,
-			OnDisable,
-			OnDestroy
-		}
-
 		[SerializeField] private TriggerType _trigger;
 
 		[SerializeField] private bool _parameterBoolean;
@@ -124,39 +114,39 @@ namespace Joi.Events
 				return;
 			}
 
-			switch (_event.Parameter)
+			switch (_event.Type)
 			{
-				case JoiEvent.ParameterType.None:
+				case ParameterType.None:
 					_event.Trigger();
 					break;
-				case JoiEvent.ParameterType.Boolean:
+				case ParameterType.Boolean:
 					_event.Trigger(_parameterBoolean);
 					break;
-				case JoiEvent.ParameterType.Color:
+				case ParameterType.Color:
 					_event.Trigger(_parameterColor);
 					break;
-				case JoiEvent.ParameterType.Float:
+				case ParameterType.Float:
 					_event.Trigger(_parameterFloat);
 					break;
-				case JoiEvent.ParameterType.GameObject:
+				case ParameterType.GameObject:
 					_event.Trigger(_parameterGameObject);
 					break;
-				case JoiEvent.ParameterType.Integer:
+				case ParameterType.Integer:
 					_event.Trigger(_parameterInteger);
 					break;
-				case JoiEvent.ParameterType.Material:
+				case ParameterType.Material:
 					_event.Trigger(_parameterMaterial);
 					break;
-				case JoiEvent.ParameterType.Object:
+				case ParameterType.Object:
 					_event.Trigger(_parameterObject);
 					break;
-				case JoiEvent.ParameterType.Sprite:
+				case ParameterType.Sprite:
 					_event.Trigger(_parameterSprite);
 					break;
-				case JoiEvent.ParameterType.String:
+				case ParameterType.String:
 					_event.Trigger(_parameterString);
 					break;
-				case JoiEvent.ParameterType.Vector3:
+				case ParameterType.Vector3:
 					_event.Trigger(_parameterVector3);
 					break;
 				default:

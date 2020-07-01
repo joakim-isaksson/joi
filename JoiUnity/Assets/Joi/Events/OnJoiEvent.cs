@@ -52,39 +52,39 @@ namespace Joi.Events
 				return;
 			}
 
-			switch (_event.Parameter)
+			switch (_event.Type)
 			{
-				case JoiEvent.ParameterType.None:
+				case ParameterType.None:
 					_event.OnTrigger += Filter;
 					break;
-				case JoiEvent.ParameterType.Boolean:
+				case ParameterType.Boolean:
 					_event.OnTriggerBoolean += Filter;
 					break;
-				case JoiEvent.ParameterType.Color:
+				case ParameterType.Color:
 					_event.OnTriggerColor += Filter;
 					break;
-				case JoiEvent.ParameterType.Float:
+				case ParameterType.Float:
 					_event.OnTriggerFloat += Filter;
 					break;
-				case JoiEvent.ParameterType.GameObject:
+				case ParameterType.GameObject:
 					_event.OnTriggerGameObject += Filter;
 					break;
-				case JoiEvent.ParameterType.Integer:
+				case ParameterType.Integer:
 					_event.OnTriggerInteger += Filter;
 					break;
-				case JoiEvent.ParameterType.Material:
+				case ParameterType.Material:
 					_event.OnTriggerMaterial += Filter;
 					break;
-				case JoiEvent.ParameterType.Object:
+				case ParameterType.Object:
 					_event.OnTriggerObject += Filter;
 					break;
-				case JoiEvent.ParameterType.Sprite:
+				case ParameterType.Sprite:
 					_event.OnTriggerSprite += Filter;
 					break;
-				case JoiEvent.ParameterType.String:
+				case ParameterType.String:
 					_event.OnTriggerString += Filter;
 					break;
-				case JoiEvent.ParameterType.Vector3:
+				case ParameterType.Vector3:
 					_event.OnTriggerVector3 += Filter;
 					break;
 				default:
@@ -105,39 +105,39 @@ namespace Joi.Events
 				return;
 			}
 
-			switch (_event.Parameter)
+			switch (_event.Type)
 			{
-				case JoiEvent.ParameterType.None:
+				case ParameterType.None:
 					_event.OnTrigger -= Filter;
 					break;
-				case JoiEvent.ParameterType.Boolean:
+				case ParameterType.Boolean:
 					_event.OnTriggerBoolean -= Filter;
 					break;
-				case JoiEvent.ParameterType.Color:
+				case ParameterType.Color:
 					_event.OnTriggerColor -= Filter;
 					break;
-				case JoiEvent.ParameterType.Float:
+				case ParameterType.Float:
 					_event.OnTriggerFloat -= Filter;
 					break;
-				case JoiEvent.ParameterType.GameObject:
+				case ParameterType.GameObject:
 					_event.OnTriggerGameObject -= Filter;
 					break;
-				case JoiEvent.ParameterType.Integer:
+				case ParameterType.Integer:
 					_event.OnTriggerInteger -= Filter;
 					break;
-				case JoiEvent.ParameterType.Material:
+				case ParameterType.Material:
 					_event.OnTriggerMaterial -= Filter;
 					break;
-				case JoiEvent.ParameterType.Object:
+				case ParameterType.Object:
 					_event.OnTriggerObject -= Filter;
 					break;
-				case JoiEvent.ParameterType.Sprite:
+				case ParameterType.Sprite:
 					_event.OnTriggerSprite -= Filter;
 					break;
-				case JoiEvent.ParameterType.String:
+				case ParameterType.String:
 					_event.OnTriggerString -= Filter;
 					break;
-				case JoiEvent.ParameterType.Vector3:
+				case ParameterType.Vector3:
 					_event.OnTriggerVector3 -= Filter;
 					break;
 				default:
@@ -152,7 +152,7 @@ namespace Joi.Events
 
 		private void Filter()
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.None)
+			if (_event.Type != ParameterType.None)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -163,7 +163,7 @@ namespace Joi.Events
 
 		private void Filter(bool value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Boolean)
+			if (_event.Type != ParameterType.Boolean)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -177,7 +177,7 @@ namespace Joi.Events
 
 		private void Filter(Color value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Color)
+			if (_event.Type != ParameterType.Color)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -188,7 +188,7 @@ namespace Joi.Events
 
 		private void Filter(float value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Float)
+			if (_event.Type != ParameterType.Float)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -202,7 +202,7 @@ namespace Joi.Events
 
 		private void Filter(GameObject value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.GameObject)
+			if (_event.Type != ParameterType.GameObject)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -213,7 +213,7 @@ namespace Joi.Events
 
 		private void Filter(int value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Integer)
+			if (_event.Type != ParameterType.Integer)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -227,7 +227,7 @@ namespace Joi.Events
 
 		private void Filter(Material value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Material)
+			if (_event.Type != ParameterType.Material)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -238,7 +238,7 @@ namespace Joi.Events
 
 		private void Filter(Object value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Object)
+			if (_event.Type != ParameterType.Object)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -249,7 +249,7 @@ namespace Joi.Events
 
 		private void Filter(Sprite value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Sprite)
+			if (_event.Type != ParameterType.Sprite)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -260,7 +260,7 @@ namespace Joi.Events
 
 		private void Filter(string value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.String)
+			if (_event.Type != ParameterType.String)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
@@ -274,7 +274,7 @@ namespace Joi.Events
 
 		private void Filter(Vector3 value)
 		{
-			if (_event.Parameter != JoiEvent.ParameterType.Vector3)
+			if (_event.Type != ParameterType.Vector3)
 			{
 				Debug.LogAssertion("Trigger type do not match event parameter type", this);
 				return;
