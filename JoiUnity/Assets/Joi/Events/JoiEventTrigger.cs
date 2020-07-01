@@ -1,102 +1,167 @@
-// using System.Collections;
-// using UnityEngine;
-//
-// namespace Joi.Events
-// {
-// 	// TODO
-// 	public class JoiEventTrigger : MonoBehaviour
-// 	{
-// 		public enum TriggerType
-// 		{
-// 			Manual,
-// 			OnAwake,
-// 			OnStart,
-// 			OnEnable,
-// 			OnDisable,
-// 			OnDestroy
-// 		}
-//
-// 		[SerializeField] private TriggerType _trigger;
-// 		[SerializeField] private TValue _triggerValue;
-// 		[SerializeField] private float _triggerDelay;
-// 		[SerializeField] private TEvent _event;
-//
-// 		private void Reset()
-// 		{
-// 			_trigger = TriggerType.Manual;
-// 			_triggerValue = default;
-// 			_triggerDelay = 0f;
-// 			_event = null;
-// 		}
-//
-// 		private void Awake()
-// 		{
-// 			if (_trigger == TriggerType.OnAwake)
-// 			{
-// 				Trigger();
-// 			}
-// 		}
-//
-// 		private void Start()
-// 		{
-// 			if (_trigger == TriggerType.OnStart)
-// 			{
-// 				Trigger();
-// 			}
-// 		}
-//
-// 		private void OnEnable()
-// 		{
-// 			if (_trigger == TriggerType.OnEnable)
-// 			{
-// 				Trigger();
-// 			}
-// 		}
-//
-// 		private void OnDisable()
-// 		{
-// 			if (_trigger == TriggerType.OnDisable)
-// 			{
-// 				Trigger();
-// 			}
-// 		}
-//
-// 		private void OnDestroy()
-// 		{
-// 			if (_trigger == TriggerType.OnDestroy)
-// 			{
-// 				Trigger();
-// 			}
-// 		}
-//
-// 		public void Trigger()
-// 		{
-// 			Trigger(_triggerValue);
-// 		}
-//
-// 		public void Trigger(TValue value)
-// 		{
-// 			if (_triggerDelay > 0f)
-// 			{
-// 				StartCoroutine(InvokeAfterDelay(value));
-// 			}
-// 			else
-// 			{
-// 				if (_event != null)
-// 				{
-// 					_event.Trigger(value);
-// 				}
-// 			}
-// 		}
-//
-// 		private IEnumerator InvokeAfterDelay(TValue value)
-// 		{
-// 			yield return new WaitForSeconds(_triggerDelay);
-//
-// 			if (_event != null)
-// 			{
-// 				_event.Trigger(value);
-// 			}
-// 		}
-// 	}
-// }
+using System;
+using System.Collections;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+namespace Joi.Events
+{
+	public class JoiEventTrigger : MonoBehaviour
+	{
+		public enum TriggerType
+		{
+			None,
+			OnAwake,
+			OnStart,
+			OnEnable,
+			OnDisable,
+			OnDestroy
+		}
+
+		[SerializeField] private TriggerType _trigger;
+
+		[SerializeField] private bool _parameterBoolean;
+		[SerializeField] private Color _parameterColor;
+		[SerializeField] private float _parameterFloat;
+		[SerializeField] private GameObject _parameterGameObject;
+		[SerializeField] private int _parameterInteger;
+		[SerializeField] private Material _parameterMaterial;
+		[SerializeField] private Object _parameterObject;
+		[SerializeField] private Sprite _parameterSprite;
+		[SerializeField] private string _parameterString;
+		[SerializeField] private Vector3 _parameterVector3;
+
+		[SerializeField] private float _delay;
+
+		[SerializeField] private JoiEvent _event;
+
+		private void Reset()
+		{
+			_trigger = TriggerType.None;
+
+			_parameterBoolean = false;
+			_parameterColor = Color.white;
+			_parameterFloat = 0f;
+			_parameterGameObject = null;
+			_parameterInteger = 0;
+			_parameterMaterial = null;
+			_parameterObject = null;
+			_parameterSprite = null;
+			_parameterString = null;
+			_parameterVector3 = Vector3.zero;
+
+			_delay = 0f;
+			_event = null;
+		}
+
+		private void Awake()
+		{
+			if (_trigger == TriggerType.OnAwake)
+			{
+				Trigger();
+			}
+		}
+
+		private void Start()
+		{
+			if (_trigger == TriggerType.OnStart)
+			{
+				Trigger();
+			}
+		}
+
+		private void OnEnable()
+		{
+			if (_trigger == TriggerType.OnEnable)
+			{
+				Trigger();
+			}
+		}
+
+		private void OnDisable()
+		{
+			if (_trigger == TriggerType.OnDisable)
+			{
+				Trigger();
+			}
+		}
+
+		private void OnDestroy()
+		{
+			if (_trigger == TriggerType.OnDestroy)
+			{
+				Trigger();
+			}
+		}
+
+		public void Trigger()
+		{
+			TriggerWithDelay(_delay);
+		}
+
+		public void TriggerWithDelay(float delay)
+		{
+			if (delay > 0f)
+			{
+				StartCoroutine(TriggerAfterDelay(delay));
+			}
+			else
+			{
+				TriggerEvent();
+			}
+		}
+
+		private IEnumerator TriggerAfterDelay(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			TriggerEvent();
+		}
+
+		private void TriggerEvent()
+		{
+			if (_event == null)
+			{
+				Debug.LogAssertion("Missing event reference", this);
+				return;
+			}
+
+			switch (_event.Parameter)
+			{
+				case JoiEvent.ParameterType.None:
+					_event.Trigger();
+					break;
+				case JoiEvent.ParameterType.Boolean:
+					_event.Trigger(_parameterBoolean);
+					break;
+				case JoiEvent.ParameterType.Color:
+					_event.Trigger(_parameterColor);
+					break;
+				case JoiEvent.ParameterType.Float:
+					_event.Trigger(_parameterFloat);
+					break;
+				case JoiEvent.ParameterType.GameObject:
+					_event.Trigger(_parameterGameObject);
+					break;
+				case JoiEvent.ParameterType.Integer:
+					_event.Trigger(_parameterInteger);
+					break;
+				case JoiEvent.ParameterType.Material:
+					_event.Trigger(_parameterMaterial);
+					break;
+				case JoiEvent.ParameterType.Object:
+					_event.Trigger(_parameterObject);
+					break;
+				case JoiEvent.ParameterType.Sprite:
+					_event.Trigger(_parameterSprite);
+					break;
+				case JoiEvent.ParameterType.String:
+					_event.Trigger(_parameterString);
+					break;
+				case JoiEvent.ParameterType.Vector3:
+					_event.Trigger(_parameterVector3);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+	}
+}
