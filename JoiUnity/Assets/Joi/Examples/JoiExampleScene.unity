@@ -7110,7 +7110,6 @@ GameObject:
   - component: {fileID: 1451202105}
   - component: {fileID: 1451202107}
   - component: {fileID: 1451202106}
-  - component: {fileID: 1451202108}
   m_Layer: 5
   m_Name: Tittle
   m_TagString: Untagged
@@ -7178,31 +7177,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451202104}
   m_CullTransparentMesh: 0
---- !u!114 &1451202108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451202104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd8252bd189445a88f54cb4b2cdcb7cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trigger: 2
-  _parameterBoolean: 0
-  _parameterColor: {r: 1, g: 1, b: 1, a: 1}
-  _parameterFloat: 0
-  _parameterGameObject: {fileID: 0}
-  _parameterInteger: 0
-  _parameterMaterial: {fileID: 0}
-  _parameterObject: {fileID: 0}
-  _parameterSprite: {fileID: 0}
-  _parameterString: 
-  _parameterVector3: {x: 0, y: 0, z: 0}
-  _delay: 0
-  _event: {fileID: 11400000, guid: e58b401422cfe49e285e893aad78bf6b, type: 2}
 --- !u!1 &1481423622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7573,7 +7547,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Event Trigger Manual
+  m_Text: Event Trigger
 --- !u!222 &1505842227
 CanvasRenderer:
   m_ObjectHideFlags: 0
