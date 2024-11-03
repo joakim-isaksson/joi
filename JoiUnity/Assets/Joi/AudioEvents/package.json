@@ -1,0 +1,7 @@
+{
+  "name": "com.joi.audioevents",
+  "displayName": "Joi Audio Events",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "Scriptable Object based Audio Events for Unity"
+}

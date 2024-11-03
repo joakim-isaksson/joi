@@ -1,0 +1,16 @@
+{
+    "name": "Joi.UIEvents",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fc7a4df64abdd4ec893e87160a0bae78"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,2 +1,1 @@
-# joi
-Unity Packages
+# Joi Unity Packages
