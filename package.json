@@ -1,0 +1,10 @@
+{
+  "name": "com.joi.uireferences",
+  "displayName": "Joi UI References",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "Unity UI references for UI variables",
+  "dependencies": {
+    "com.joi.uivariables":"1.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Joi.UIReferences",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8ff991755c12f40c6b5024916f4c2642"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
