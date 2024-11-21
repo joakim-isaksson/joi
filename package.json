@@ -1,0 +1,14 @@
+{
+    "name": "com.joi.virtualinputs",
+    "displayName": "Joi Virtual Inputs",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "Virtual Input System for Unity",
+    "samples": [
+        {
+            "displayName": "Virtual Input Sample",
+            "description": "Virtual Input Sample",
+            "path": "Samples~/VirtualInputSample"
+        }
+    ]
+}
