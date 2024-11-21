@@ -1,0 +1,7 @@
+{
+    "name": "com.joi.unityevents",
+    "displayName": "Joi Unity Events",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "Extending Unity Events"
+}
